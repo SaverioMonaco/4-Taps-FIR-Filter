@@ -94,7 +94,6 @@ architecture rtl of fir_filter_4 is
           p_data       <= (others=>(others=>'0'));
           r_coeff      <= (others=>(others=>'0'));
         elsif(rising_edge(fir_clk)) then
-          if(fir_i_valid='1') then
           -- This is actually a really clever trick to shift and put the new
           -- value at the first place in the array:
           -- Notice that "&" is concatenation: we define the new p_data array
@@ -103,12 +102,11 @@ architecture rtl of fir_filter_4 is
           --               |----------------- p_data (old) -----------------|
           --  | fir_i_data | p_data[0] | p_data_[1] | p_data[2] | p_data[3] |
           --  |-------------------- p_data (new) ---------------|
-            p_data      <= signed(fir_i_data) & p_data(0 to p_data'length-2);
-            r_coeff(0)  <= signed(fir_coeff_0);
-            r_coeff(1)  <= signed(fir_coeff_1);
-            r_coeff(2)  <= signed(fir_coeff_2);
-            r_coeff(3)  <= signed(fir_coeff_3);
-          end if;
+          p_data      <= signed(fir_i_data) & p_data(0 to p_data'length-2);
+          r_coeff(0)  <= signed(fir_coeff_0);
+          r_coeff(1)  <= signed(fir_coeff_1);
+          r_coeff(2)  <= signed(fir_coeff_2);
+          r_coeff(3)  <= signed(fir_coeff_3);
         end if;
       end process p_input;
 
@@ -120,12 +118,10 @@ architecture rtl of fir_filter_4 is
         if(fir_rstb='0') then
           r_mult       <= (others=>(others=>'0'));
         elsif(rising_edge(fir_clk)) then
-          if(fir_i_valid='1') then
-            for k in 0 to 3 loop
-              -- Apply the multiplication for every data in the array of datas
-              r_mult(k)       <= p_data(k) * r_coeff(k);
-            end loop;
-          end if;
+          for k in 0 to 3 loop
+            -- Apply the multiplication for every data in the array of datas
+            r_mult(k)       <= p_data(k) * r_coeff(k);
+          end loop;
         end if;
     end process p_mult;
 
@@ -138,17 +134,15 @@ architecture rtl of fir_filter_4 is
         if(fir_rstb='0') then
           r_add_st0     <= (others=>(others=>'0'));
         elsif(rising_edge(fir_clk)) then
-          if(fir_i_valid='1') then
-            for k in 0 to 1 loop -- 0 for the addition between X[N]   and X[N-1]
-                                 --  1 for the addition between X[N-2] and X[N-3]
-              -- I guess resizing it before the multiplication makes you have no
-              -- risk of overflow, since it will make a 0 appear to the left, and
-              -- in the worst case scenario, it will become 1 after the addition
-              r_add_st0(k)     <= resize(r_mult(2*k),17)  + resize(r_mult(2*k+1),17);
-              -- r_add_st0(0) <= resize(r_mult(0),17)  + resize(r_mult(1),17);
-              -- r_add_st0(1) <= resize(r_mult(2),17)  + resize(r_mult(3),17);
-            end loop;
-          end if;
+          for k in 0 to 1 loop -- 0 for the addition between X[N]   and X[N-1]
+                              --  1 for the addition between X[N-2] and X[N-3]
+            -- I guess resizing it before the multiplication makes you have no
+            -- risk of overflow, since it will make a 0 appear to the left, and
+            -- in the worst case scenario, it will become 1 after the addition
+            r_add_st0(k)     <= resize(r_mult(2*k),17)  + resize(r_mult(2*k+1),17);
+            -- r_add_st0(0) <= resize(r_mult(0),17)  + resize(r_mult(1),17);
+            -- r_add_st0(1) <= resize(r_mult(2),17)  + resize(r_mult(3),17);
+          end loop;
         end if;
     end process p_add_st0;
 
@@ -159,9 +153,7 @@ architecture rtl of fir_filter_4 is
         if(fir_rstb='0') then
           r_add_st1     <= (others=>'0');
         elsif(rising_edge(fir_clk)) then
-          if(fir_i_valid='1') then
-            r_add_st1     <= resize(r_add_st0(0),18)  + resize(r_add_st0(1),18);
-          end if;
+          r_add_st1     <= resize(r_add_st0(0),18)  + resize(r_add_st0(1),18);
         end if;
     end process p_add_st1;
 
@@ -171,9 +163,7 @@ architecture rtl of fir_filter_4 is
         if(fir_rstb='0') then
           fir_o_data     <= (others=>'0');
         elsif(rising_edge(fir_clk)) then
-          if(fir_i_valid='1') then
-            fir_o_data     <= std_logic_vector(r_add_st1(17 downto 8)); -- here
-          end if;
+          fir_o_data     <= std_logic_vector(r_add_st1(17 downto 8)); -- here
         end if;
     end process p_output;
 

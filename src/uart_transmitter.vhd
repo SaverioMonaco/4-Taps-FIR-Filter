@@ -26,7 +26,7 @@ architecture rtl of uart_transmitter is
 
   signal baudrate_out : std_logic;
 -- state machine signals
-  type state_t is (idle_s, data_valid_s, start_s, bit0_s, bit1_s, bit2_s, bit3_s, bit4_s, bit5_s, bit6_s, bit7_s, bit8_s, stop_s);
+  type state_t is (idle_s, data_valid_s, start_s, bit0_s, bit1_s, bit2_s, bit3_s, bit4_s, bit5_s, bit6_s, bit7_s, bit8_s, bit9_s, stop_s);
 
   signal state : state_t := idle_s;
 begin  -- architecture rtl
@@ -98,8 +98,19 @@ begin  -- architecture rtl
         when bit7_s =>
           uart_tx <= data_to_python(7);
           if baudrate_out = '1' then
+            state <= bit8_s;
+          end if;
+        when bit8_s =>
+          uart_tx <= data_to_python(8);
+          if baudrate_out = '1' then
+            state <= bit9_s;
+          end if;
+        when bit9_s =>
+          uart_tx <= data_to_python(9);
+          if baudrate_out = '1' then
             state <= stop_s;
           end if;
+          
         when stop_s =>
           uart_tx <= '1';
           if baudrate_out = '1' then

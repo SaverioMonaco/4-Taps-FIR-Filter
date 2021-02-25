@@ -1,8 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-
-
 entity top is
 
   port (
@@ -20,18 +18,30 @@ architecture str of top is
   signal busy            : std_logic;
   signal uart_tx         : std_logic;
   signal unfiltered_data : std_logic_vector(7 downto 0);
-  signal filtered_data   : std_logic_vector(7 downto 0);
+  signal filtered_data   : std_logic_vector(9 downto 0);
 
   signal i_rstb    : std_logic := '1';
-  signal c_0 : std_logic_vector(7 downto 0) := X"B2"; -- 0.04156529
-  signal c_1 : std_logic_vector(7 downto 0) := X"01"; -- 0.45843471
-  signal c_2 : std_logic_vector(7 downto 0) := X"ff"; -- 0.45843471
-  signal c_3 : std_logic_vector(7 downto 0) := X"ff"; -- 0.04156529
+  signal c_0 : std_logic_vector(7 downto 0) := X"01"; -- 0.04156529
+  signal c_1 : std_logic_vector(7 downto 0) := X"0f"; -- 0.45843471
+  signal c_2 : std_logic_vector(7 downto 0) := X"0f"; -- 0.45843471
+  signal c_3 : std_logic_vector(7 downto 0) := X"01"; -- 0.04156529
+
+  -- TOP manages the interactions between the uart (transmitter and reciver)
+  -- and the process of filtering data:
+  --                                                               ___________
+  --   ____________        ______________  Data and data valid    |          |
+  --  |           |       |   Receiver  | --------------------->  |          |
+  --  |           |----> |_____________|                          |   FIR    |
+  --  |  Python   |       ______________   Data and data valid    |  Filter  |
+  --  |           |<---- | Transmitter | <---------------------   |          |
+  --  |___________|     |_____________|                           |__________|
+  --
+  --  |____PC____|     |_____________________FPGA____________________________|
 
   component uart_transmitter is
     port (
       clock          : in  std_logic;
-      data_to_python : in  std_logic_vector(7 downto 0);
+      data_to_python : in  std_logic_vector(9 downto 0);
       data_valid     : in  std_logic;
       busy           : out std_logic;
       uart_tx        : out std_logic);
@@ -47,33 +57,20 @@ architecture str of top is
 
   component fir_filter_4 is
     port (
-      clk : in  std_logic;
-      nxt : in  std_logic;
-      rst : in  std_logic;
-      c_0 : in  std_logic_vector(7 downto 0); -- 0.04156529
-      c_1 : in  std_logic_vector(7 downto 0); -- 0.45843471
-      c_2 : in  std_logic_vector(7 downto 0); -- 0.45843471
-      c_3 : in  std_logic_vector(7 downto 0); -- 0.04156529
-      data_in    : in  std_logic_vector(7 downto 0);
+      fir_clk     : in  std_logic;
+      fir_rstb    : in  std_logic;
+      fir_coeff_0 : in  std_logic_vector(7 downto 0);
+      fir_coeff_1 : in  std_logic_vector(7 downto 0);
+      fir_coeff_2 : in  std_logic_vector(7 downto 0);
+      fir_coeff_3 : in  std_logic_vector(7 downto 0);
+      fir_i_data  : in  std_logic_vector(7 downto 0);
 
-      valid_out  : out std_logic;
-      data_out   : out std_logic_vector(7 downto 0)
+      fir_i_valid : in  std_logic;
+      fir_o_valid : out std_logic;
+      fir_o_data  : out std_logic_vector(9 downto 0)
 
       );
   end component fir_filter_4;
-
--- TOP manages the interactions between the uart (transmitter and reciver)
--- and the process of filtering data:
---                                                               ___________
---   ____________        ______________  Data and data valid    |          |
---  |           |       |   Receiver  | --------------------->  |          |
---  |           |----> |_____________|                          |   FIR    |
---  |  Python   |       ______________   Data and data valid    |  Filter  |
---  |           |<---- | Transmitter | <---------------------   |          |
---  |___________|     |_____________|                           |__________|
---
---  |____PC____|     |_____________________FPGA____________________________|
-
 
 begin  -- architecture str
 -- This is the core process that manages the interaction between UART and FIR:
@@ -88,18 +85,18 @@ begin  -- architecture str
 -- Then we want to use the Filter:
   fir_filter_1 : fir_filter_4
     port map (
-      clk       => CLK100MHZ,
-      nxt       => data_valid,
-      rst       => i_rstb,
-      valid_out => data_valid_fil,
-      c_0       => c_0,
-      c_1       => c_1,
-      c_2       => c_2,
-      c_3       => c_3,
+      fir_clk     => CLK100MHZ,
+      fir_rstb    => i_rstb,
+      fir_i_valid => data_valid,
+      fir_o_valid => data_valid_fil,
+      fir_coeff_0 => c_0,
+      fir_coeff_1 => c_1,
+      fir_coeff_2 => c_2,
+      fir_coeff_3 => c_3,
 
-      data_in   => unfiltered_data,
+      fir_i_data  => unfiltered_data,
       -- filtering here
-      data_out  => filtered_data);
+      fir_o_data  => filtered_data);
 
 -- Finally we want to transmit back out filtered data:
   uart_transmitter_1 : uart_transmitter
