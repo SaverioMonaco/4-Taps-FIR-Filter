@@ -22,6 +22,8 @@ def char_to_int(character):
 import serial
 ser = serial.Serial('/dev/ttyUSB21', baudrate=115200)
 
+import numpy as np
+
 data_size = 100
 noise = 1 # the higher the noisier
 
