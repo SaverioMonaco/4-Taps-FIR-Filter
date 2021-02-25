@@ -30,4 +30,4 @@ for i in range(100):
     ser.write(chr(signed_to_unsigned(sig)))
     d = ser.read()
     #print("Output:", ord(d))
-    print(unsigned_to_signed(ord(d)))
+    print(ord(unsigned_to_signed(d)))
