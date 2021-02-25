@@ -30,7 +30,8 @@ noise = 1 # the higher the noisier
 for i in range(data_size):
     sig = 60*(math.sin(i/10)+ noise)
     noise = -noise
-    ser.write(round(sig)) # we write it as an int
+    inp = round(sig)
+    ser.write(int(inp)) # we write it as an int
     d = ser.read()
     #print("Output:", ord(d))
     print(ord(d))
