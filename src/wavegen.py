@@ -22,16 +22,12 @@ def char_to_int(character):
 import serial
 ser = serial.Serial('/dev/ttyUSB21', baudrate=115200)
 
-import math
+# Let's load the array from the file 'input.txt'
+from numpy import savetxt, loadtxt
+sig = loadtxt("input.txt")
 
-data_size = 200
-noise = 1 # the higher the noisier
-
-a = False
 for i in range(data_size):
-    sig = 30*(2 + math.sin(i/10)+ noise)
-    noise = -noise
-    ser.write(int(round(sig))) 
+    ser.write(chr(signed_to_unsigned(sig[i])))
     d = ser.read()
     #print("Output:", ord(d))
-    print(ord(d))
+    print(unsigned_to_signed(ord(d)))
