@@ -9,4 +9,4 @@ f = open("input.txt", "w")
 for i in range(data_size):
     sig = 60*(math.sin(i/10)+ noise)
     noise = -noise
-    f.write('%d\n' % sig.astype(int)) # we write it as an int
+    f.write('%d\n' % int(sig)) # we write it as an int
