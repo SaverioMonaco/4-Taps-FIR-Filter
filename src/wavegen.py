@@ -24,16 +24,16 @@ ser = serial.Serial('/dev/ttyUSB21', baudrate=115200)
 
 import math
 
-data_size = 100
+data_size = 200
 noise = 1 # the higher the noisier
 
 a = False
 for i in range(data_size):
     if(a):
-        ser.write(10)
+        ser.write(-100)
     else:
-        ser.write(120)
-    if i % 10 == 0:
+        ser.write(100)
+    if i % 15 == 0:
         a = not a
     #sig = 60*(math.sin(i/10)+ noise)
     #noise = -noise
