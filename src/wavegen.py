@@ -18,7 +18,7 @@ def unsigned_to_signed(unsigned):
         return unsigned-2**8
 
 def int_to_char(value):
-    return chr(signed_to_unsigend(value))
+    return chr(signed_to_unsigned(value))
 
 def char_to_int(character):
     return unsigned_to_signed(ord(character))
