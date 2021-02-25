@@ -27,7 +27,7 @@ file_in = open('./src/input.txt', 'r')
 file_ou  = open('./src/input.txt', 'w')
 
 for i in range(100):
-    sig = file.readline()
+    sig = file_in.readline()
     ser.write(chr(signed_to_unsigend(sig)))
     d = ser.read()
     #print("Output:", ord(d))
