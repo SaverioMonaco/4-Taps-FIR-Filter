@@ -24,8 +24,8 @@ def char_to_int(character):
     return unsigned_to_signed(ord(character))
 
 for i in range(100):
-    sig = int(file_in.readline())
-    ser.write(int_to_char(sig))
+    sig = file_in.readline()
+    ser.write(int_to_char(int(sig)))
     d = ser.read()
     print(char_to_int(d))
     file_ou.write('%d\n' % char_to_int(d))
