@@ -174,6 +174,8 @@ architecture rtl of fir_filter_4 is
           if(fir_i_valid = '1') then
             fir_o_data     <= std_logic_vector(r_add_st1(17 downto 8)); -- here
             fir_o_valid <= '1';
+          else
+            fir_o_valid <= '0';
           end if;
         end if;
     end process p_output;
