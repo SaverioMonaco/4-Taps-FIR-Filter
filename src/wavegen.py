@@ -19,22 +19,16 @@ def int_to_char(value):
 def char_to_int(character):
     return unsigned_to_signed(ord(character))
 
-print("conversion functions imported")
-
 import serial
 ser = serial.Serial('/dev/ttyUSB21', baudrate=115200)
 
-# Creating a square wave
-a = False
-for i in range(200):
-    if(a):
-        ser.write(120)
-        #print("Input: 120")
-    if(not a):
-        ser.write(20)
-        #print("Input: 20")
-    if(i % 10 == 0):
-        a = not a
+data_size = 100
+noise = 1 # the higher the noisier
+
+for i in range(data_size):
+    sig = 60*(np.sin(i/10)+ noise)
+    noise = -noise
+    ser.write(sig.astype(int)) # we write it as an int
     d = ser.read()
     #print("Output:", ord(d))
     print(ord(d))
