@@ -7,7 +7,7 @@ entity uart_transmitter is
 
   port (
     clock          : in  std_logic;
-    data_to_python : in  std_logic_vector(7 downto 0);
+    data_to_python : in  std_logic_vector(9 downto 0);
     data_valid     : in  std_logic;
     busy           : out std_logic;
     uart_tx        : out std_logic);
@@ -110,7 +110,7 @@ begin  -- architecture rtl
           if baudrate_out = '1' then
             state <= stop_s;
           end if;
-          
+
         when stop_s =>
           uart_tx <= '1';
           if baudrate_out = '1' then
