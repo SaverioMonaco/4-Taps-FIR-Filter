@@ -23,11 +23,13 @@ import serial
 ser = serial.Serial('/dev/ttyUSB21', baudrate=115200)
 
 # Let's load the array from the file 'input.txt'
-file = open('./src/input.txt', 'r')
+file_in = open('./src/input.txt', 'r')
+file_ou  = open('./src/input.txt', 'w')
 
 for i in range(100):
-    sig = int(file.readline())
-    ser.write(int_to_char(sig))
+    sig = file.readline()
+    ser.write(chr(signed_to_unsigend(sig)))
     d = ser.read()
     #print("Output:", ord(d))
-    print(char_to_int(d))
+    print(unsigned_to_signed(ord(d)))
+    file_ou.write('%d\n' % unsigned_to_signed(ord(d)).astype(int))
