@@ -33,7 +33,7 @@ for i in range(data_size):
         ser.write(10)
     else:
         ser.write(120)
-    if i % 3 == 0:
+    if i % 10 == 0:
         a = not a
     #sig = 60*(math.sin(i/10)+ noise)
     #noise = -noise
