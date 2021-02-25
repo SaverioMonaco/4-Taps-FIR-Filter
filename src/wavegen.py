@@ -27,11 +27,18 @@ import math
 data_size = 100
 noise = 1 # the higher the noisier
 
+a = False
 for i in range(data_size):
-    sig = 60*(math.sin(i/10)+ noise)
-    noise = -noise
-    inp = round(sig)
-    ser.write(int(inp)) # we write it as an int
+    if(a):
+        ser.write(10)
+    else:
+        ser.write(120)
+    if i % 3 == 0:
+        a = not a
+    #sig = 60*(math.sin(i/10)+ noise)
+    #noise = -noise
+    #inp = round(sig)
+    #ser.write(int(inp)) # we write it as an int
     d = ser.read()
     #print("Output:", ord(d))
     print(ord(d))
