@@ -1,8 +1,8 @@
 import serial
+import math
 ser = serial.Serial('/dev/ttyUSB21', baudrate=115200)
 
 # Let's load the array from the file 'input.txt'
-file_in  = open('./src/input.txt', 'r')
 file_ou  = open('./src/input.txt', 'w')
 
 def signed_to_unsigned(signed):
@@ -23,9 +23,19 @@ def int_to_char(value):
 def char_to_int(character):
     return unsigned_to_signed(ord(character))
 
+sig_data = []
+
+data_size = 100
+noise = 1 # the higher the noisier
+
+for i in range(data_size):
+    sig = 60*(math.sin(i/10)+ noise)
+    noise = -noise
+    sig_data.apppend(int(sig))
+
+# wavegen
 for i in range(100):
-    sig = int(file_in.readline())
-    ser.write(int_to_char(sig))
+    ser.write(int_to_char(sig_data[i]))
     d = ser.read()
     print(char_to_int(d))
     file_ou.write('%d\n' % char_to_int(d))
