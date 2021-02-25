@@ -29,16 +29,9 @@ noise = 1 # the higher the noisier
 
 a = False
 for i in range(data_size):
-    if(a):
-        ser.write(-100)
-    else:
-        ser.write(100)
-    if i % 15 == 0:
-        a = not a
-    #sig = 60*(math.sin(i/10)+ noise)
-    #noise = -noise
-    #inp = round(sig)
-    #ser.write(int(inp)) # we write it as an int
+    sig = 30*(2 + math.sin(i/10)+ noise)
+    noise = -noise
+    ser.write(int(round(sig))) 
     d = ser.read()
     #print("Output:", ord(d))
     print(ord(d))
