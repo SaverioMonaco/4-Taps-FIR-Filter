@@ -25,7 +25,7 @@ ser = serial.Serial('/dev/ttyUSB21', baudrate=115200)
 # Let's load the array from the file 'input.txt'
 file = open('./src/input.txt', 'r')
 
-for i in range(data_size):
+for i in range(100):
     sig = int(file.readline())
     ser.write(chr(signed_to_unsigned(si)))
     d = ser.read()
