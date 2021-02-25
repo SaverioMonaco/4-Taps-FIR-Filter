@@ -13,7 +13,7 @@ def unsigned_to_signed(unsigned):
 
 
 def int_to_char(value):
-    return char(signed_to_unsigend(value))
+    return chr(signed_to_unsigend(value))
 
 
 def char_to_int(character):
