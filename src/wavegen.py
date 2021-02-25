@@ -1,3 +1,5 @@
+import math
+
 data_size = 100
 noise = 1 # the higher the noisier
 
@@ -5,6 +7,6 @@ noise = 1 # the higher the noisier
 f = open("input.txt", "w")
 
 for i in range(data_size):
-    sig = 60*(np.sin(i/10)+ noise)
+    sig = 60*(math.sin(i/10)+ noise)
     noise = -noise
     f.write('%d\n' % sig.astype(int)) # we write it as an int
