@@ -27,7 +27,7 @@ file = open('./src/input.txt', 'r')
 
 for i in range(100):
     sig = int(file.readline())
-    ser.write(chr(signed_to_unsigned(sig)))
+    ser.write(int_to_char(sig))
     d = ser.read()
     #print("Output:", ord(d))
-    print(ord(unsigned_to_signed(d)))
+    print(char_to_int(d))
