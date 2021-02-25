@@ -23,7 +23,7 @@ import serial
 ser = serial.Serial('/dev/ttyUSB21', baudrate=115200)
 
 # Let's load the array from the file 'input.txt'
-file = open('input.txt', 'r')
+file = open('./input.txt', 'r')
 
 for i in range(data_size):
     sig = int(file.readline())
