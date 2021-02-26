@@ -23,10 +23,10 @@ def char_to_int(character):
 sig_data = []
 
 data_size = 200
-noise = .3 # the higher the noisier
+noise = .5 # the higher the noisier
 print("-------------------\nInput:")
 for i in range(data_size):
-    sig = int(60*(math.sin(i/20)+ noise))
+    sig = int(65*(math.sin(i/30)+ noise))
     print(sig)
     noise = -noise
     sig_data.append(sig)
