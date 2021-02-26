@@ -36,4 +36,4 @@ print("-------------------\nOutput:")
 for i in range(data_size):
     ser.write(int_to_char(sig_data[i]))
     d = ser.read()
-    print(char_to_int(d)*2**5)
+    print(char_to_int(d)*2**4)
