@@ -29,7 +29,7 @@ data_size = 100
 noise = 1 # the higher the noisier
 
 for i in range(data_size):
-    sig = 60*(math.sin(i/10)+ noise)
+    sig = 40*(2*math.sin(i/10)+ noise)
     noise = -noise
     sig_data.append(int(sig))
 
