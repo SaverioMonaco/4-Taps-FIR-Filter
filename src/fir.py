@@ -40,4 +40,4 @@ for i in range(data_size):
     ser.write(int_to_char(sig_data[i]))
     d = ser.read()
     print(char_to_int(d)*8)
-    file_ou.write('%d\n' % 8*char_to_int(d))
+    file_ou.write('%d\n' % 32*char_to_int(d))
