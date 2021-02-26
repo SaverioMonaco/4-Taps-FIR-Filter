@@ -25,16 +25,17 @@ def char_to_int(character):
 
 sig_data = []
 
-data_size = 100
+data_size = 200
 noise = 1 # the higher the noisier
 
 for i in range(data_size):
     sig = 40*(2*math.sin(i/10)+ noise)
+    print(sig)
     noise = -noise
     sig_data.append(int(sig))
 
 # wavegen
-for i in range(100):
+for i in range(data_size):
     ser.write(int_to_char(sig_data[i]))
     d = ser.read()
     print(char_to_int(d))
