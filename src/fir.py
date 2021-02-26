@@ -27,16 +27,17 @@ sig_data = []
 
 data_size = 200
 noise = 1 # the higher the noisier
-
+print("-------------------\nInput:")
 for i in range(data_size):
     sig = int(40*(2*math.sin(i/10)+ noise))
     print(sig)
     noise = -noise
     sig_data.append(sig)
 
+print("-------------------\nOutput:")
 # wavegen
 for i in range(data_size):
     ser.write(int_to_char(sig_data[i]))
     d = ser.read()
     print(char_to_int(d))
-    file_ou.write('%d\n' % char_to_int(d))
+    file_ou.write('%d\n' % 8*char_to_int(d))
