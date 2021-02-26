@@ -31,7 +31,7 @@ entity fir_filter_4 is
     -- data input
     fir_i_data       : in  std_logic_vector(7 downto 0);
     -- filtered data
-    fir_o_data       : out std_logic_vector(9 downto 0));
+    fir_o_data       : out std_logic_vector(7 downto 0));
 end fir_filter_4;
 
 architecture rtl of fir_filter_4 is
@@ -172,7 +172,7 @@ architecture rtl of fir_filter_4 is
           fir_o_data     <= (others=>'0');
         elsif(rising_edge(fir_clk)) then
           if(fir_i_valid = '1') then
-            fir_o_data     <= std_logic_vector(r_add_st1(17 downto 8)); -- here
+            fir_o_data     <= std_logic_vector(r_add_st1(17 downto 10)); -- here
             fir_o_valid <= '1';
           else
             fir_o_valid <= '0';

@@ -18,7 +18,7 @@ architecture str of top is
   signal busy            : std_logic;
   signal uart_tx         : std_logic;
   signal unfiltered_data : std_logic_vector(7 downto 0);
-  signal filtered_data   : std_logic_vector(9 downto 0);
+  signal filtered_data   : std_logic_vector(7 downto 0);
 
   signal i_rstb    : std_logic := '1';
   signal c_0 : std_logic_vector(7 downto 0) := X"01";
@@ -41,7 +41,7 @@ architecture str of top is
   component uart_transmitter is
     port (
       clock          : in  std_logic;
-      data_to_python : in  std_logic_vector(9 downto 0);
+      data_to_python : in  std_logic_vector(7 downto 0);
       data_valid     : in  std_logic;
       busy           : out std_logic;
       uart_tx        : out std_logic);
@@ -67,7 +67,7 @@ architecture str of top is
 
       fir_i_valid : in  std_logic;
       fir_o_valid : out std_logic;
-      fir_o_data  : out std_logic_vector(9 downto 0)
+      fir_o_data  : out std_logic_vector(7 downto 0)
 
       );
   end component fir_filter_4;
