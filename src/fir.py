@@ -29,10 +29,10 @@ data_size = 200
 noise = 1 # the higher the noisier
 
 for i in range(data_size):
-    sig = 40*(2*math.sin(i/10)+ noise)
+    sig = int(40*(2*math.sin(i/10)+ noise))
     print(sig)
     noise = -noise
-    sig_data.append(int(sig))
+    sig_data.append(sig)
 
 # wavegen
 for i in range(data_size):
