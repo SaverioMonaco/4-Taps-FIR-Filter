@@ -26,7 +26,7 @@ data_size = 200
 noise = 1# the higher the noisier
 print("-------------------\nInput:")
 for i in range(data_size):
-    sig = 60*(math.sin(i/30)+ noise)
+    sig = int(60*(math.sin(i/30)+ noise))
     print(sig)
     noise = -noise
     sig_data.append(sig)
