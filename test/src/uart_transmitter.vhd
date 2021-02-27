@@ -26,7 +26,7 @@ architecture rtl of uart_transmitter is
 
   signal baudrate_out : std_logic;
 -- state machine signals
-  type state_t is (idle_s, data_valid_s, start_s, bit0_s, bit1_s, bit2_s, bit3_s, bit4_s, bit5_s, bit6_s, bit7_s, bit8_s, bit9_s, bit10_s, bit11_s, bit12_s, bit13_s, bit14_s, bit15_s, bit16_s, bit18_s, stop_s);
+  type state_t is (idle_s, data_valid_s, start_s, bit0_s, bit1_s, bit2_s, bit3_s, bit4_s, bit5_s, bit6_s, bit7_s, bit8_s, bit9_s, bit10_s, bit11_s, bit12_s, bit13_s, bit14_s, bit15_s, bit16_s, bit17_s, stop_s);
 
   signal state : state_t := idle_s;
 begin  -- architecture rtl
