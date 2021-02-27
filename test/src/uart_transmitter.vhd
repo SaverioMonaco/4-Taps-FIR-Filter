@@ -7,7 +7,7 @@ entity uart_transmitter is
 
   port (
     clock          : in  std_logic;
-    data_to_python : in  std_logic_vector(7 downto 0);
+    data_to_python : in  std_logic_vector(17 downto 0);
     data_valid     : in  std_logic;
     busy           : out std_logic;
     uart_tx        : out std_logic);
@@ -26,7 +26,7 @@ architecture rtl of uart_transmitter is
 
   signal baudrate_out : std_logic;
 -- state machine signals
-  type state_t is (idle_s, data_valid_s, start_s, bit0_s, bit1_s, bit2_s, bit3_s, bit4_s, bit5_s, bit6_s, bit7_s, stop_s);
+  type state_t is (idle_s, data_valid_s, start_s, bit0_s, bit1_s, bit2_s, bit3_s, bit4_s, bit5_s, bit6_s, bit7_s, bit8_s, bit9_s, bit10_s, bit11_s, bit12_s, bit13_s, bit14_s, bit15_s, bit16_s, bit17_s, stop_s);
 
   signal state : state_t := idle_s;
 begin  -- architecture rtl
@@ -97,6 +97,56 @@ begin  -- architecture rtl
           end if;
         when bit7_s =>
           uart_tx <= data_to_python(7);
+          if baudrate_out = '1' then
+            state <= bit8_s;
+          end if;
+          when bit8_s =>
+            uart_tx <= data_to_python(8);
+            if baudrate_out = '1' then
+              state <= bit9_s;
+            end if;
+            when bit9_s =>
+              uart_tx <= data_to_python(9);
+              if baudrate_out = '1' then
+                state <= bit10_s;
+              end if;
+              when bit10_s =>
+                uart_tx <= data_to_python(10);
+                if baudrate_out = '1' then
+                  state <= bit11_s;
+                end if;
+                when bit11_s =>
+                  uart_tx <= data_to_python(11);
+                  if baudrate_out = '1' then
+                    state <= bit12_s;
+                  end if;
+                  when bit12_s =>
+                    uart_tx <= data_to_python(12);
+                    if baudrate_out = '1' then
+                      state <= bit13_s;
+                    end if;
+                    when bit13_s =>
+                      uart_tx <= data_to_python(13);
+                      if baudrate_out = '1' then
+                        state <= bit14_s;
+                      end if;
+                      when bit14_s =>
+                        uart_tx <= data_to_python(14);
+                        if baudrate_out = '1' then
+                          state <= bit15_s;
+                        end if;
+                        when bit15_s =>
+                          uart_tx <= data_to_python(15);
+                          if baudrate_out = '1' then
+                            state <= bit16_s;
+                          end if;
+                          when bit16_s =>
+                            uart_tx <= data_to_python(16);
+                            if baudrate_out = '1' then
+                              state <= bit17_s;
+                            end if;
+        when bit17_s =>
+          uart_tx <= data_to_python(17);
           if baudrate_out = '1' then
             state <= stop_s;
           end if;
