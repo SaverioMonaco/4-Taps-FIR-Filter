@@ -1,0 +1,9 @@
+/backup
+/.ipynb_checkpoints
+*.pdf
+*.gz
+*.aux
+*.log
+*.blg
+*.bbl
+*.out
