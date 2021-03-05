@@ -133,7 +133,7 @@ architecture rtl of fir_filter_4 is
     --      X[N]  + X[N-1]
     --     X[N-2] + X[N-3]
     -- The output is an array of two vectors of 17 bits
-    p_add_st0 : process (fir_rstb,fir_clk) -- *PA0*
+    p_add0 : process (fir_rstb,fir_clk) -- *PA0*
       begin
         if(fir_rstb='0') then
           r_add_st0     <= (others=>(others=>'0'));
@@ -150,11 +150,11 @@ architecture rtl of fir_filter_4 is
             end loop;
           end if;
         end if;
-    end process p_add_st0;
+    end process p_add0;
 
     -- Simply adds the two final terms together, as to the first addition, the
     -- two terms were firstly resized to avoid overflows
-    p_add_st1 : process (fir_rstb,fir_clk) -- *PA1*
+    p_add1 : process (fir_rstb,fir_clk) -- *PA1*
       begin
         if(fir_rstb='0') then
           r_add_st1     <= (others=>'0');
@@ -163,7 +163,7 @@ architecture rtl of fir_filter_4 is
             r_add_st1     <= resize(r_add_st0(0),18)  + resize(r_add_st0(1),18);
           end if;
         end if;
-    end process p_add_st1;
+    end process p_add1;
 
     -- We resize the output by taking in consideration only the first 10 terms
     p_output : process (fir_rstb,fir_clk) -- *PO*

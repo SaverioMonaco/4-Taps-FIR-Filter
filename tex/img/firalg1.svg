@@ -417,8 +417,8 @@
       </g>
       <g class="com.sun.star.drawing.TextShape">
        <g id="id50">
-        <rect class="BoundingBox" stroke="none" fill="none" x="14960" y="13575" width="2370" height="963"/>
-        <text class="TextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15210" y="14276"><tspan fill="rgb(0,0,0)" stroke="none">8 bits</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="14760" y="13575" width="2370" height="963"/>
+        <text class="TextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15010" y="14276"><tspan fill="rgb(0,0,0)" stroke="none">10 bits</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.TextShape">
@@ -483,20 +483,20 @@
       </g>
       <g class="com.sun.star.drawing.TextShape">
        <g id="id61">
-        <rect class="BoundingBox" stroke="none" fill="none" x="6438" y="8635" width="3458" height="963"/>
-        <text class="TextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="6688" y="9336"><tspan fill="rgb(141,29,117)" stroke="none">p_add0</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="6138" y="8635" width="3458" height="963"/>
+        <text class="TextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="6388" y="9336"><tspan fill="rgb(141,29,117)" stroke="none">p_add_0</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.TextShape">
        <g id="id62">
         <rect class="BoundingBox" stroke="none" fill="none" x="20739" y="8635" width="3458" height="963"/>
-        <text class="TextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="20989" y="9336"><tspan fill="rgb(141,29,117)" stroke="none">p_add0</tspan></tspan></tspan></text>
+        <text class="TextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="20989" y="9336"><tspan fill="rgb(141,29,117)" stroke="none">p_add_0</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.TextShape">
        <g id="id63">
-        <rect class="BoundingBox" stroke="none" fill="none" x="13240" y="7835" width="3458" height="963"/>
-        <text class="TextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="13490" y="8536"><tspan fill="rgb(42,96,153)" stroke="none">p_add1</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="13140" y="7835" width="3458" height="963"/>
+        <text class="TextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="13390" y="8536"><tspan fill="rgb(42,96,153)" stroke="none">p_add_1</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.TextShape">
