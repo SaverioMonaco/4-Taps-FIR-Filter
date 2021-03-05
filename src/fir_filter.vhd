@@ -72,7 +72,7 @@ begin
 
         if(fir_rstb = '0') then
             conv <= (others => (others => '0'));
-        elsif(rising_edge(i_clk)) then
+        elsif(rising_edge(fir_clk)) then
 	    if fir_i_valid = '1' then
                 for k in 0 to 3 loop
                     conv(k) <= data(k) * coeff(k); -- perform convolution
