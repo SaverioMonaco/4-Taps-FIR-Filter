@@ -13,6 +13,7 @@ with open("signal.txt") as f, open("output.txt", "w") as out:
     signal = [int(line.rstrip()) for line in f]
 
     for sig in signal:
+        print(sig)
         ser.write(chr(sig))
 
         d = ord(ser.read())
