@@ -22,10 +22,10 @@ architecture str of top is
 
   signal i_rstb    : std_logic := '1';
   --'0xc', '0x74', '0x74', '0xc'
-  signal c_0 : std_logic_vector(7 downto 0) := X"03";
-  signal c_1 : std_logic_vector(7 downto 0) := X"1d";
-  signal c_2 : std_logic_vector(7 downto 0) := X"1d";
-  signal c_3 : std_logic_vector(7 downto 0) := X"03";
+  signal c_0 : std_logic_vector(7 downto 0) := X"6";
+  signal c_1 : std_logic_vector(7 downto 0) := X"3a";
+  signal c_2 : std_logic_vector(7 downto 0) := X"3a";
+  signal c_3 : std_logic_vector(7 downto 0) := X"6";
 
   -- TOP manages the interactions between the uart (transmitter and reciver)
   -- and the process of filtering data:
