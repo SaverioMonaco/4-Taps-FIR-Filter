@@ -33,7 +33,7 @@ with open("signal.txt") as f, open("output.txt", "w") as out:
     for sig in signal:
         ser.write(int_to_char(sig))
 
-        d = ord(ser.read())
+        d = ser.read()
         res = char_to_int(d)
         print(res)
         out.write(res + '\n')
