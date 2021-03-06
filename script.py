@@ -36,7 +36,7 @@ with open("signal.txt") as f, open("output.txt", "w") as out:
         d = ser.read()
         res = char_to_int(d)
         print(res)
-        out.write(res)
+        out.write(str(res) + '\n' )
 
     f.close()
     out.close()
