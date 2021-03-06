@@ -7,7 +7,7 @@ def to_2(num):
     if num <= 127:
         return num
     elif num > 127:
-        return num - 0
+        return num - 127
 
 with open("signal.txt") as f, open("output.txt", "w") as out:
     signal = [int(line.rstrip()) for line in f]
