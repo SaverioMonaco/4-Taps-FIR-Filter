@@ -16,7 +16,7 @@ with open("signal.txt") as f, open("output.txt", "w") as out:
         ser.write(chr(sig))
 
         d = ord(ser.read())
-        print(d)
+        print(to_2(d))
         res = str(to_2(d))
         out.write(res + '\n')
 
