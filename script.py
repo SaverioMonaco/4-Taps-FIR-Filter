@@ -4,9 +4,9 @@ ser = serial.Serial('/dev/ttyUSB21', baudrate=115200) # open serial port
 print(ser.name) # check which port was really used
 
 def to_2(num):
-    if num <= 127:
+    if num <= 128:
         return num
-    elif num > 127:
+    elif num > 128:
         return num - 256
 
 with open("signal.txt") as f, open("output.txt", "w") as out:
@@ -22,4 +22,4 @@ with open("signal.txt") as f, open("output.txt", "w") as out:
 
     f.close()
     out.close()
-#ser.close() # close port
+ser.close() # close port
