@@ -7,7 +7,7 @@ def to_2(num):
     if num <= 127:
         return num
     elif num > 127:
-        return num - 128
+        return num - 256
 
 with open("signal.txt") as f, open("output.txt", "w") as out:
     signal = [int(line.rstrip()) for line in f]
@@ -16,7 +16,7 @@ with open("signal.txt") as f, open("output.txt", "w") as out:
         ser.write(chr(sig))
 
         d = ord(ser.read())
-        print(to_2(d))
+        print(d)
         res = str(to_2(d))
         out.write(res + '\n')
 
