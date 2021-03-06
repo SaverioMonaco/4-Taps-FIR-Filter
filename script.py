@@ -21,7 +21,6 @@ def int_to_char(value):
 def char_to_int(character):
     return unsigned_to_signed(ord(character))
 
-        return num - 256
 
 with open("signal.txt") as f, open("output.txt", "w") as out:
     signal = [int(line.rstrip()) for line in f]
