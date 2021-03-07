@@ -16,10 +16,10 @@ architecture test of fir_filter_4_tb is
   -- component ports
   signal tb_clk        : std_logic                    := '0';    -- [in]
   signal tb_rstb       : std_logic;                              -- [in]
-  signal tb_coeff_0    : std_logic_vector(7 downto 0) := X"01";  -- [in]
-  signal tb_coeff_1    : std_logic_vector(7 downto 0) := X"0f";  -- [in]
-  signal tb_coeff_2    : std_logic_vector(7 downto 0) := X"0f";  -- [in]
-  signal tb_coeff_3    : std_logic_vector(7 downto 0) := X"01";  -- [in]
+  signal tb_coeff_0    : std_logic_vector(7 downto 0) := X"0c";  -- [in]
+  signal tb_coeff_1    : std_logic_vector(7 downto 0) := X"74";  -- [in]
+  signal tb_coeff_2    : std_logic_vector(7 downto 0) := X"74";  -- [in]
+  signal tb_coeff_3    : std_logic_vector(7 downto 0) := X"0c";  -- [in]
   signal tb_i_data     : std_logic_vector(7 downto 0); -- [in]
   signal tb_o_data     : std_logic_vector(9 downto 0);           -- [out]
   signal tb_clk_enable : boolean                      := true;
