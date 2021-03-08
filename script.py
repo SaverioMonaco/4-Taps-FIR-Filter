@@ -38,4 +38,4 @@ with open("signal.txt") as f, open("output.txt", "w") as out:
     out.close()
 ser.close() # close port
 
-os.system('./output.sh')
+os.system('./upload.sh')
