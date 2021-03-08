@@ -1,4 +1,5 @@
 import serial
+import os
 
 ser = serial.Serial('/dev/ttyUSB21', baudrate=115200) # open serial port
 print(ser.name) # check which port was really used
@@ -36,3 +37,5 @@ with open("signal.txt") as f, open("output.txt", "w") as out:
     f.close()
     out.close()
 ser.close() # close port
+
+os.system('./output.sh')
