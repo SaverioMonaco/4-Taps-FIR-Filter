@@ -7,3 +7,5 @@
 *.blg
 *.bbl
 *.out
+/fromfpga.txt
+/output.txt
