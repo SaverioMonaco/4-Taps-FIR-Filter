@@ -71,8 +71,8 @@ architecture rtl of fir_filter_4 is
 --                                           |
 --                                           |  18bits
 --                                           |
---                                     *PO* << 8
---                                           |  10bits
+--                                     *PO* << 10
+--                                           |  8bits
 --                                           V
  --                                       OUTPUT
   --

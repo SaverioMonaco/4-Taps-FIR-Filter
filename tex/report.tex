@@ -40,8 +40,9 @@
 	autogobble=true
 }
 
-\author{Saverio Monaco, Gerardo Carmona\\ \sepline}
-\title{\textbf{Low Pass FIR Filter in FPGA}}
+\author{Saverio Monaco, Gerardo Carmona\\ 2012264\hspace{1.5cm} ???????\\ \sepline}
+\title{\textbf{Low Pass FIR Filter in FPGA}\\ Management and Analysis of Physics Datasets - MOD. A}
+
 
 \begin{document}
 	\maketitle
@@ -59,7 +60,7 @@
 		\includegraphics[width=1\linewidth]{img/FIR_direct_svg}
 		\caption{Circuit for a FIR Filter}
 	\end{figure}\\
-	The component represented by a square is a \emph{Flip-flop} (necessary to store the past 3 input for the weighted sum), while \includegraphics[width=0.05\linewidth]{img/x} and \includegraphics[width=0.05\linewidth]{img/+} represent respectively the operations of multiplication and addition.\\
+	The component represented by a square is a \emph{Flip-flop} (necessary to store the past 3 input for the weighted sum), while \includegraphics[width=0.05\linewidth]{img/x} and \includegraphics[width=0.05\linewidth]{img/+} represent respectively the operations of multiplication and addition.
 	\subsection*{The coefficients}
 	The value of the coefficients depends on what type of filter do we want to implement and which value of frequencies do we want to filter out.\\
 	The values of the coefficients can be computed with \emph{Python} using the function \texttt{firwin} in Scipy:
@@ -77,6 +78,7 @@
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.7\linewidth]{img/lowpass}
+		\caption{Low Pass filter}
 	\end{figure}
 	\section{Implementation of a FIR Filter in VHDL}
 	We cannot directly implement the coefficient just found since they are not integers, one way to solve it is to multiplying them before the filtering process and rescaling consequently the output signal. For example:\\$$20\times 0.75 = 15$$ In binary terms it means
@@ -106,10 +108,6 @@
 	When you multiply two numbers of N-bit and M-bit the output dynamic of the multiplication result is (N+M)-bits.\\
 	When you perform addition, the number of bit of the result will be incremented by 1.\\
 	This means that, considering the coefficients being 8 bits wide, if the input signal is 8 bits, the output signal should have 18 bits.\\
-	\begin{figure}[h]
-		\hspace*{-1cm}
-		\includegraphics[width=1.2\linewidth]{img/firalg1}
-	\end{figure}\\
 	In order to write a code able to compute this operation:
 	$$ Y[n] = \sum_{i=0}^N C_i x[n-i] $$
 	We implemented 5 processes in it:
@@ -120,6 +118,11 @@
 	\item\textbf{p\_add\_1} (final addition): The values of the last process are added together as always paying attention to overflows
 	\item\textbf{p\_output} (output): The 18 bits output is resized to 8 (same as the input)
 	\end{itemize}
+\begin{figure}[h]
+	\hspace*{-1cm}
+	\includegraphics[width=1.2\linewidth]{img/firalg1}
+	\caption{Algorithm of FIR Filter}
+\end{figure}
 	\section{UART implementation}
 	A UART is one of the simplest hardware devices capable of transfer data from and to the FPGA.
 	To set up a UART correctly, the device and the FPGA must agree on how quickly the data is transfered, this speed is called \emph{Baud rate}.\\
@@ -127,29 +130,33 @@
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=1\linewidth]{img/baud}
+		\caption{UART communication}
 	\end{figure}\\
 	By default the \emph{Idle state} (the state where the transmitter is waiting for data to send) is \texttt{HIGH}, the \emph{start bit} is \texttt{LOW}, no information is transfered with the start bit, it just tells that some data will be transfered after. Then the bits will be transfered, obviously they can be either 0 or 1, then the end of the stream is announced by the \emph{stop bit} that is \texttt{HIGH}\medskip\\
 	The complete project can be schematized as it follows:
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=1\linewidth]{img/projectcomplete}
+		\caption{FPGA structure}
 	\end{figure}\\
 	Inside the FPGA we will have a \emph{receiver} that will receive data from Python through a USB, the data will be sent to the FIR Filter, it will be filtered and then sent to the transmitter, from there Python can read the output.\\
 	For this project we need then 3 main entities: the Fir Filter (already explained), the Receiver and the Transmitter (already provdided). These 3 entities are managed by another entity \emph{top}:
 	\begin{figure}[h]
 		\centering
 		\hspace*{-.8cm}\includegraphics[width=1.1\linewidth]{img/code1}
-	\end{figure}
+	\end{figure}\newpage
 	\section{Results}
 	The results shown are for a signal consisting of two frequencies: 10 Hz and 60 Hz: 
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=.9\linewidth]{img/rawsig}
-	\end{figure}
+		\caption{Raw signal}
+	\end{figure}\\
 	Implementing a Filter with a cutoff frequency of 30 Hz we get rid of the higher frequency (the noise), obtaining the following result:
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=.9\linewidth]{img/fpgaresult}
+		\caption{FPGA performance}
 	\end{figure}\\
 	As we can see the output from the FPGA is a signal of a single frequency of 10 Hz as expected. We can also make a comparison between the output from the FPGA and a simulated FPGA in Python using the function
 	\begin{lstlisting}
@@ -158,6 +165,10 @@
 	Where c is the matrix of the coefficients, wave is the raw signal input:
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=.9\linewidth]{img/fpgapython}
-	\end{figure}
+		\includegraphics[width=1\linewidth]{img/fpgapython}
+		\caption{Comparison with Python}
+	\end{figure}\\
+	Since results from the VHDL implementation ran on the FPGA optimally match the ones
+	simulated in Python, we conclude that the FIR Filter has been correctly implemented and that it
+	efficiently simulates a low-pass filter.
 \end{document}
