@@ -1,6 +1,5 @@
 /backup
 /.ipynb_checkpoints
-*.pdf
 *.gz
 *.aux
 *.log
@@ -9,3 +8,4 @@
 *.out
 /fromfpga.txt
 /output.txt
+/work-obj93.cf

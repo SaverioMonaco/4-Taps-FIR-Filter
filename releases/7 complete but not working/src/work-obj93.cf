@@ -1,7 +1,0 @@
-v 4
-file . "fir_filter.vhd" "6d1c4bd6bb30aa34c582bf79a545819a950fab64" "20210221201837.818":
-  entity fir_filter_4 at 1( 0) + 0 on 17;
-  architecture rtl of fir_filter_4 at 22( 612) + 0 on 18;
-file . "fir_valid.vhd" "8c4c6608efdb3e5810a9ad00b5454028fdcc53b5" "20210221163752.920":
-  entity dffvalid at 1( 0) + 0 on 11;
-  architecture std of dffvalid at 17( 262) + 0 on 12;
