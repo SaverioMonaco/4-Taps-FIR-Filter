@@ -1,6 +1,5 @@
 /backup
 /.ipynb_checkpoints
-*.pdf
 *.gz
 *.aux
 *.log
