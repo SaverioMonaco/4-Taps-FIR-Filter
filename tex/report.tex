@@ -52,7 +52,7 @@
 	\section{FIR Filter}
 	A Filter takes as input a signal $X[n]$ and outputs a refined one $Y[n]$. In the case of a FIR Filter, the law $X[n]\to Y[n]$ is described as follows: 
 	$$ Y[n] = \sum_{i=0}^N C_i x[n-i] $$
-	where $N$ is the _filter order_. The filter performance improves as the order is increased. For this project, we have chosen to implement a 3 order filter (4-Taps FIR Filter).\\ Our transformation law is then
+	where $N$ is the \textit{filter order}. The filter performance improves as the order is increased. For this project, we have chosen to implement a 3 order filter (4-Taps FIR Filter).\\ Our transformation law is then
 	$$\begin{aligned} Y[n]&=\sum_{i=0}^3 C_ix[n-i]=\\ & \Scale[0.8]{\hspace*{.2cm}=C_0x[n]+C_1x[n-1]+C_2x[n-2]+C_3x[n-3]}\end{aligned}$$
 	The filter described above has the following circuit representation:
 	\begin{figure}[h]
@@ -74,7 +74,7 @@
 	
 	[0.04673608 0.45326392 0.45326392 0.04673608]
 	\end{lstlisting}
-	The coefficients so obtained will be used to build a low pass filter with a cut-off frequency of 3 Hz for a sampling frequency of 125 Hz
+	The coefficients so obtained will be used to build a low pass filter with a cut-off frequency of 30 Hz for a sampling frequency of 125 Hz
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.7\linewidth]{img/lowpass}
@@ -92,7 +92,7 @@
 	$$1111000_2 >> 3 = 1111_2 = 15$$
 	In practice, we scaled the coefficients and wrote them in hexadecimal:
 	\begin{lstlisting}
-	c = signal.firwin(4, 3, fs=125)
+	c = signal.firwin(4, 30, fs=125)
 	rc = c * 2**8
 	hex_rc = []
 	
@@ -102,8 +102,8 @@
 	print(rc)    
 	print(hex_rc)
 	
-	[ 11.964 116.035 116.035  11.964]
-	['0xc', '0x74', '0x74', '0xc']
+	[0.0187 0.4812 0.4812 0.0187]
+	['0x5', '0x7b', '0x7b', '0x5']
 	\end{lstlisting}
 	\subsection*{The algorithm}
 	The product of an N-bits number and an M-bits one results in an (N+M)-bits number.\\
@@ -120,8 +120,8 @@
 	\item\textbf{p\_output} (output): The 18 bits output is resized to 8 (same as the input)
 	\end{itemize}
 \begin{figure}[h]
-	\hspace*{-1cm}
-	\includegraphics[width=1.2\linewidth]{img/firalg1}
+	\hspace*{-.5cm}
+	\includegraphics[width=1.2\linewidth]{img/firalg1pdf}
 	\caption{Algorithm of FIR Filter}
 \end{figure}
 	\section{UART implementation}
@@ -130,22 +130,25 @@
 	The data stream is the following:
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=1\linewidth]{img/baud}
+		\includegraphics[width=1\linewidth]{img/UART_timing_diagram}
 		\caption{UART communication}
 	\end{figure}\\
-	By default the \emph{Idle state} (the state where the transmitter is waiting for data to send) is \texttt{HIGH}, the \emph{start bit} is \texttt{LOW}, no information is transfered with the start bit, it just states that data will eventually be transfered. Then the bits will be transfered, until the end of the stream is announced by the \emph{stop bit}, that is \texttt{HIGH}\medskip\\
+	By default the \emph{Idle state} (the state where the transmitter is waiting for data to send) is \texttt{HIGH}, the \emph{start bit} is \texttt{LOW}, no information is transfered with the start bit, it just states that data will eventually be transfered. Then the bits will be transfered, until the end of the stream is announced by the \emph{stop bit}, that is \texttt{HIGH}.\newpage
 	The complete project can be schematized as it follows:
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=1\linewidth]{img/projectcomplete}
+		\includegraphics[width=1\linewidth]{img/projectcompletepdf}
 		\caption{FPGA structure}
+		\label{fig:fpgastruct}
 	\end{figure}\\
 	Inside the FPGA there is a \emph{receiver} that obtains data from a python script through a USB. The data is sent to the FIR Filter, where it's filtered and then sent to the transmitter. Once there, the output can be read by python.\\
 	For this project we need therefore 3 main entities: the Fir Filter (already explained), the Receiver and the Transmitter (already provdided). These 3 entities are managed by another entity \emph{top}:
 	\begin{figure}[h]
 		\centering
-		\hspace*{-.8cm}\includegraphics[width=1.1\linewidth]{img/code1}
-	\end{figure}\newpage
+		\vspace*{-.4cm}
+		\hspace*{-.8cm}\includegraphics[width=1.2\linewidth]{img/code1white.png}
+	\end{figure}
+	\newpage
 	\section{Results}
 	The results shown correspond to an input signal of two frequencies: 10 Hz and 60 Hz: 
 	\begin{figure}[h]
