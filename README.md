@@ -27,3 +27,7 @@ make program_fpga
 
 1. After compilation, the filtered signal will be in `fromfpga.txt`
 
+
+
+A brief explanation of how the filter was made can be found in the [report](https://github.com/SaverioMonaco/4-Taps-FIR-Filter/blob/track_saverio_10/tex/report.pdf).
+
